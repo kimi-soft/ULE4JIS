@@ -242,6 +242,10 @@ LRESULT Ule4JisDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		default:
 			break;
 		}
+
+    case WM_WINDOWPOSCHANGING:
+        onWindowPosChanging((WINDOWPOS*)lParam);
+        break;
 	}
 
 	return CDialog::WindowProc(message, wParam, lParam);
@@ -255,6 +259,16 @@ void Ule4JisDlg::changeTaskTrayIconToUS() {
 void Ule4JisDlg::changeTaskTrayIconToJIS() {
 	this->notifyIconData.hIcon = ::AfxGetApp()->LoadIcon(IDR_ICON_JIS);
 	::Shell_NotifyIcon(NIM_MODIFY, &this->notifyIconData);
+}
+
+void Ule4JisDlg::onWindowPosChanging(WINDOWPOS* lpwndpos)
+{
+    CDialog::OnWindowPosChanging(lpwndpos);
+
+    // Hidden launch dialog
+    if (lpwndpos != NULL) {
+        lpwndpos->flags &= ~SWP_SHOWWINDOW;
+    }
 }
 
 void Ule4JisDlg::showTaskTrayPopupMenu() {

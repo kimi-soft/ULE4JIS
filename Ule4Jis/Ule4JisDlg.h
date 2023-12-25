@@ -27,6 +27,7 @@ private:
 	void showTaskTrayPopupMenu();
 	void changeTaskTrayIconToUS();
 	void changeTaskTrayIconToJIS();
+    void onWindowPosChanging(WINDOWPOS* lpwndpos);
 
 // ŽÀ‘•
 protected:
